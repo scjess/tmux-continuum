@@ -29,6 +29,10 @@ template() {
 	    </array>
 	    <key>RunAtLoad</key>
 	    <true/>
+	    <key>StandardOutPath</key>
+	    <string>${HOME}/.local/share/tmux/tmux-boot.out.log</string>
+	    <key>StandardErrorPath</key>
+	    <string>${HOME}/.local/share/tmux/tmux-boot.err.log</string>
 	</dict>
 	</plist>
 	EOF

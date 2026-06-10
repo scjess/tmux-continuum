@@ -17,6 +17,9 @@ auto_restore_halt_file="${HOME}/tmux_no_auto_restore"
 
 auto_restore_max_delay_option="@continuum-restore-max-delay"
 auto_restore_max_delay_default="10"
+# the headless zsh boot path runs a full login+interactive shell and TPM plugin
+# load before the restore gate is evaluated, which routinely exceeds 10s
+auto_restore_max_delay_zsh_default="60"
 
 # tmux auto start options
 auto_start_option="@continuum-boot"

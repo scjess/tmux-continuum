@@ -43,11 +43,23 @@ add_resurrect_save_interpolation() {
 	fi
 }
 
+restore_max_delay_default() {
+	# zsh headless boot needs more headroom before the gate; see variables.sh
+	local boot_options
+	boot_options="$(get_tmux_option "$auto_start_config_option" "$auto_start_config_default")"
+	if [[ "$boot_options" =~ "zsh" ]]; then
+		echo "$auto_restore_max_delay_zsh_default"
+	else
+		echo "$auto_restore_max_delay_default"
+	fi
+}
+
 just_started_tmux_server() {
 	local tmux_start_time
 	tmux_start_time="$(tmux display-message -p -F '#{start_time}')"
 	local restore_max_delay
-	restore_max_delay="$(get_tmux_option "$auto_restore_max_delay_option" "${auto_restore_max_delay_default}")"
+	# explicit @continuum-restore-max-delay still overrides the per-boot default
+	restore_max_delay="$(get_tmux_option "$auto_restore_max_delay_option" "$(restore_max_delay_default)")"
 	[ "$tmux_start_time" == "" ] || [ "$tmux_start_time" -gt "$(($(date +%s)-${restore_max_delay}))" ]
 }
 
